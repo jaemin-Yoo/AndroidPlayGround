@@ -1,32 +1,75 @@
 package com.example.myapplication.data
 
 import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
-@Database(entities = [Entity::class], version = 1, exportSchema = false)
+@Database(entities = [TextEntity::class], version = 2, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
 
-    abstract fun dao(): DAO
+    abstract fun textDao(): TextDao
+
+    private val mIsDatabaseCreated = MutableLiveData<Boolean>()
 
     companion object {
-        private var instance: AppDatabase? = null
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
+        private const val DATABASE_NAME = "myapplication_db"
 
-        @Synchronized
-        fun getInstance(context: Context): AppDatabase? {
+        fun getDatabase(
+            context: Context,
+            scope: CoroutineScope
+        ): AppDatabase{
+            return INSTANCE?: synchronized(this){
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDatabase::class.java,
+                    DATABASE_NAME
+                )
+                    .addCallback(AppDatabaseCallback(scope))
+                    .fallbackToDestructiveMigration()
+                    .build()
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
 
-            if(instance == null){
-                synchronized(AppDatabase::class){
-                    instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        AppDatabase::class.java,
-                        "database-name"
-                    ).build()
+    private class AppDatabaseCallback(
+        private val scope: CoroutineScope
+    ): RoomDatabase.Callback(){
+
+        override fun onCreate(db: SupportSQLiteDatabase) {
+            super.onCreate(db)
+            INSTANCE?.let { database ->
+                scope.launch {
+                    populateDatabase(database.textDao())
                 }
             }
-
-            return instance
         }
+
+        suspend fun populateDatabase(textDao: TextDao){
+            textDao.insert(TextEntity(null, "Init"))
+        }
+    }
+
+    private fun updateDatabaseCreated(context: Context) {
+        if (context.getDatabasePath(DATABASE_NAME).exists()) {
+            setDatabaseCreated()
+        }
+    }
+
+    private fun setDatabaseCreated() {
+        mIsDatabaseCreated.postValue(true)
+    }
+
+    open fun getDatabaseCreated(): LiveData<Boolean> {
+        return mIsDatabaseCreated
     }
 }

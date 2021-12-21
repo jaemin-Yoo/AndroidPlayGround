@@ -3,28 +3,26 @@ package com.example.myapplication.repository
 import android.app.Application
 import androidx.lifecycle.LiveData
 import com.example.myapplication.data.AppDatabase
-import com.example.myapplication.data.DAO
-import com.example.myapplication.data.Entity
+import com.example.myapplication.data.TextDao
+import com.example.myapplication.data.TextEntity
 
-class Repository(application: Application) {
-    private val dao: DAO
-    private val list: LiveData<List<Entity>>
+class Repository(mDatabase: AppDatabase) {
+    private val textDao = mDatabase.textDao()
+    val allText: LiveData<List<TextEntity>> = textDao.getAll()
 
-    init {
-        var db = AppDatabase.getInstance(application)
-        dao = db!!.dao()
-        list = db.dao().getAll()
+    companion object{
+        private var sInstance: Repository?= null
+        fun getInstance(database: AppDatabase): Repository{
+            return sInstance
+                ?: synchronized(this){
+                    val instance = Repository(database)
+                    sInstance = instance
+                    instance
+                }
+        }
     }
 
-    fun insert(entity: Entity){
-        dao.insert(entity)
-    }
-
-    fun delete(entity: Entity){
-        dao.delete(entity)
-    }
-
-    fun getAll(): LiveData<List<Entity>>{
-        return dao.getAll()
+    suspend fun insert(textEntity: TextEntity){
+        textDao.insert(textEntity)
     }
 }

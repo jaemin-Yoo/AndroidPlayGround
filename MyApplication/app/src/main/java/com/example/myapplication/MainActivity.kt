@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.example.StudyExampleFunction
 import com.example.myapplication.viewmodels.DataBindingViewModel
-import com.example.myapplication.viewmodels.EntityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

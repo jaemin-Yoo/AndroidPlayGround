@@ -5,12 +5,47 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.adapters.TextListAdapter
+import com.example.myapplication.data.TextEntity
+import com.example.myapplication.databinding.ActivityMainBinding
+import com.example.myapplication.databinding.ActivitySecondBinding
+import com.example.myapplication.viewmodels.SecondViewModel
+import kotlinx.android.synthetic.main.activity_second.*
+import kotlinx.android.synthetic.main.recycler_item.*
 
 class SecondActivity : AppCompatActivity() {
+
+    private val viewModel: SecondViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
+
+        val binding = DataBindingUtil.setContentView<ActivitySecondBinding>(this, R.layout.activity_second)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
+        val mAdapter = TextListAdapter(this)
+        recyclerView.apply{
+            adapter = mAdapter
+            layoutManager = LinearLayoutManager(applicationContext)
+        }
+
+        viewModel.allText.observe(this, Observer { text ->
+            text?.let { mAdapter.setContents(it) }
+        })
+
+        btn_save.setOnClickListener {
+            viewModel.insert(
+                TextEntity(null, et_name.text.toString())
+            )
+        }
 
         val testValue = intent.getStringExtra("testValue")
         Log.d("SecondActivity", testValue!!)
@@ -18,6 +53,5 @@ class SecondActivity : AppCompatActivity() {
         val secondIntent = Intent()
         secondIntent.putExtra("testValue","Wow")
         setResult(RESULT_OK, secondIntent)
-        finish()
     }
 }
