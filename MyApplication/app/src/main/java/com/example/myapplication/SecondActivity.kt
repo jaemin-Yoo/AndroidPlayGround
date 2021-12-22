@@ -19,13 +19,16 @@ import com.example.myapplication.viewmodels.SecondViewModel
 import kotlinx.android.synthetic.main.activity_second.*
 import kotlinx.android.synthetic.main.recycler_item.*
 
+/**
+ * MVVM Pattern Practice (ViewModel + LiveData + DataBinding + Room + RecyclerView)
+ */
+
 class SecondActivity : AppCompatActivity() {
 
     private val viewModel: SecondViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_second)
 
         val binding = DataBindingUtil.setContentView<ActivitySecondBinding>(this, R.layout.activity_second)
         binding.viewModel = viewModel
@@ -45,6 +48,10 @@ class SecondActivity : AppCompatActivity() {
             viewModel.insert(
                 TextEntity(null, et_name.text.toString())
             )
+        }
+
+        btn_deleteAll.setOnClickListener {
+            viewModel.deleteAll()
         }
 
         val testValue = intent.getStringExtra("testValue")

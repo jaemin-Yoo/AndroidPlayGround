@@ -1,6 +1,7 @@
 package com.example.myapplication.repository
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.myapplication.data.AppDatabase
 import com.example.myapplication.data.TextDao
@@ -24,5 +25,9 @@ class Repository(mDatabase: AppDatabase) {
 
     suspend fun insert(textEntity: TextEntity){
         textDao.insert(textEntity)
+    }
+
+    suspend fun deleteAll(){
+        textDao.deleteAll()
     }
 }

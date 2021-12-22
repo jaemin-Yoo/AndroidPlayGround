@@ -14,4 +14,7 @@ interface TextDao {
 
     @Delete
     suspend fun delete(textEntity: TextEntity)
+
+    @Query("DELETE FROM text_table")
+    suspend fun deleteAll()
 }

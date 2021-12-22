@@ -7,22 +7,29 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.example.StudyExampleFunction
-import com.example.myapplication.viewmodels.DataBindingViewModel
+import com.example.myapplication.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+
+/**
+ * MVVM Pattern Practice (ViewModel + LiveData + DataBinding)
+ */
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var result: ActivityResultLauncher<Intent>
     private lateinit var binding: ActivityMainBinding
+    private val model: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.vm = DataBindingViewModel()
+        binding.lifecycleOwner = this
+        binding.vm = model
 
         result = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             if (it.resultCode == Activity.RESULT_OK){
@@ -42,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         exampleFun.forLoopExample()
     }
 
-    private fun initRecyclerView(){
-        
+    private fun setViewPager(){
+
     }
 }

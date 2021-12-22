@@ -20,11 +20,14 @@ class SecondViewModel(application: Application): AndroidViewModel(application) {
     var allText: LiveData<List<TextEntity>> = repository.allText
 
     fun onClickButton(){
-        // TODO: 클릭 시 Room에 데이터 추가
         Toast.makeText(mApplication, "Click!", Toast.LENGTH_SHORT).show()
     }
 
     fun insert(textEntity: TextEntity) = viewModelScope.launch(Dispatchers.IO){
         repository.insert(textEntity)
+    }
+
+    fun deleteAll() = viewModelScope.launch(Dispatchers.IO){
+        repository.deleteAll()
     }
 }
