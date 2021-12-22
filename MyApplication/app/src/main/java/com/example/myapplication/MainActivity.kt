@@ -9,13 +9,14 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import com.example.myapplication.adapters.ViewPagerAdapter
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.example.StudyExampleFunction
 import com.example.myapplication.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
- * MVVM Pattern Practice (ViewModel + LiveData + DataBinding)
+ * MVVM Pattern Practice (ViewModel + LiveData + DataBinding + ViewPager2 + FragmentStateAdapter)
  */
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +32,8 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.vm = model
 
+        setViewPager()
+
         result = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             if (it.resultCode == Activity.RESULT_OK){
                 val testValue = it.data?.getStringExtra("testValue")
@@ -45,11 +48,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         // for loop Example
-        var exampleFun = StudyExampleFunction()
+        val exampleFun = StudyExampleFunction()
         exampleFun.forLoopExample()
     }
 
     private fun setViewPager(){
+        val adapter = ViewPagerAdapter(this)
+        adapter.setList(getFragmentList())
+        viewpager.adapter = adapter
+    }
 
+    private fun getFragmentList(): List<BlankFragment> {
+        return listOf(BlankFragment().newInstance(1), BlankFragment().newInstance(2), BlankFragment().newInstance(3))
     }
 }

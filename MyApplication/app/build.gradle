@@ -75,4 +75,7 @@ dependencies {
     //ViewModel
     implementation 'androidx.activity:activity-ktx:1.4.0'
     implementation 'androidx.fragment:fragment-ktx:1.4.0'
+
+    //ViewPager
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
 }

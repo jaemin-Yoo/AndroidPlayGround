@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_second.*
 import kotlinx.android.synthetic.main.recycler_item.*
 
 /**
- * MVVM Pattern Practice (ViewModel + LiveData + DataBinding + Room + RecyclerView)
+ * MVVM Pattern Practice (ViewModel + LiveData + DataBinding + Repository + Room + RecyclerView)
  */
 
 class SecondActivity : AppCompatActivity() {
