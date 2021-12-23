@@ -41,7 +41,9 @@ class SecondActivity : AppCompatActivity() {
         }
 
         viewModel.allText.observe(this, Observer { text ->
-            text?.let { mAdapter.setContents(it) }
+            text?.let {
+                mAdapter.setContents(it)
+            }
         })
 
         btn_save.setOnClickListener {

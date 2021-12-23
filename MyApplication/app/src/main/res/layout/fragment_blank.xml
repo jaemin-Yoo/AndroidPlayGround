@@ -26,10 +26,10 @@
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/textview_fragment" />
+            app:layout_constraintBottom_toTopOf="@id/tv_count" />
 
         <TextView
-            android:id="@+id/textview_fragment"
+            android:id="@+id/tv_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewModel.count.toString()}"
@@ -37,6 +37,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_room_count"/>
+
+        <TextView
+            android:id="@+id/tv_room_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_count"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

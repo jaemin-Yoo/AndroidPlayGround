@@ -1,14 +1,17 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.databinding.FragmentBlankBinding
 import com.example.myapplication.viewmodels.MainViewModel
+import kotlinx.android.synthetic.main.fragment_blank.*
 
 class BlankFragment: Fragment() {
 
@@ -46,6 +49,13 @@ class BlankFragment: Fragment() {
             binding.viewModel = viewModel
             binding.lifecycleOwner = this
         }
+
+        viewModel.allCount.observe(this, Observer { count ->
+            count?.let {
+                tv_room_count.text = it.toString()
+                viewModel.roomCount = it
+            }
+        })
 
         return binding.root
     }

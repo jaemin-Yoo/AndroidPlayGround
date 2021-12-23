@@ -14,9 +14,9 @@ import kotlinx.coroutines.launch
 
 class SecondViewModel(application: Application): AndroidViewModel(application) {
     var save_text: ObservableField<String> = ObservableField("Save")
-    val mApplication = application
+    private val mApplication = application
 
-    val repository: Repository = Repository(AppDatabase.getDatabase(application,viewModelScope))
+    private val repository: Repository = Repository(AppDatabase.getDatabase(application,viewModelScope))
     var allText: LiveData<List<TextEntity>> = repository.allText
 
     fun onClickButton(){
@@ -24,10 +24,10 @@ class SecondViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun insert(textEntity: TextEntity) = viewModelScope.launch(Dispatchers.IO){
-        repository.insert(textEntity)
+        repository.textInsert(textEntity)
     }
 
     fun deleteAll() = viewModelScope.launch(Dispatchers.IO){
-        repository.deleteAll()
+        repository.textDeleteAll()
     }
 }

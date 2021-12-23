@@ -10,10 +10,11 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [TextEntity::class], version = 2, exportSchema = false)
+@Database(entities = [TextEntity::class, CountEntity::class], version = 4, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract fun textDao(): TextDao
+    abstract fun countDao(): CountDao
 
     private val mIsDatabaseCreated = MutableLiveData<Boolean>()
 
@@ -49,13 +50,14 @@ abstract class AppDatabase: RoomDatabase() {
             super.onCreate(db)
             INSTANCE?.let { database ->
                 scope.launch {
-                    populateDatabase(database.textDao())
+                    populateDatabase(database.textDao(), database.countDao())
                 }
             }
         }
 
-        suspend fun populateDatabase(textDao: TextDao){
+        suspend fun populateDatabase(textDao: TextDao, countDao: CountDao){
             textDao.insert(TextEntity(null, "Init"))
+            countDao.insert(CountEntity(0, 0))
         }
     }
 

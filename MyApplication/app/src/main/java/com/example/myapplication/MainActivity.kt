@@ -9,11 +9,13 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.example.myapplication.adapters.ViewPagerAdapter
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.example.StudyExampleFunction
 import com.example.myapplication.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_blank.*
 
 /**
  * MVVM Pattern Practice (ViewModel + LiveData + DataBinding + ViewPager2 + FragmentStateAdapter)

@@ -3,13 +3,18 @@ package com.example.myapplication.repository
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.myapplication.data.AppDatabase
+import com.example.myapplication.data.CountEntity
 import com.example.myapplication.data.TextDao
 import com.example.myapplication.data.TextEntity
 
 class Repository(mDatabase: AppDatabase) {
     private val textDao = mDatabase.textDao()
+    private val countDao = mDatabase.countDao()
+
     val allText: LiveData<List<TextEntity>> = textDao.getAll()
+    val allCount: LiveData<Int> = countDao.getCount()
 
     companion object{
         private var sInstance: Repository?= null
@@ -23,11 +28,15 @@ class Repository(mDatabase: AppDatabase) {
         }
     }
 
-    suspend fun insert(textEntity: TextEntity){
+    suspend fun textInsert(textEntity: TextEntity){
         textDao.insert(textEntity)
     }
 
-    suspend fun deleteAll(){
+    suspend fun textDeleteAll(){
         textDao.deleteAll()
+    }
+
+    suspend fun countUpdate(countEntity: CountEntity){
+        countDao.update(countEntity)
     }
 }

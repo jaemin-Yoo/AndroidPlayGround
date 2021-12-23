@@ -1,13 +1,26 @@
 package com.example.myapplication.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.myapplication.data.AppDatabase
+import com.example.myapplication.data.CountEntity
+import com.example.myapplication.data.TextEntity
+import com.example.myapplication.repository.Repository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application): AndroidViewModel(application) {
     val name = ObservableField("")
     var count = MutableLiveData<Int>()
+    var roomCount = 0
+
+    private val repository: Repository = Repository(AppDatabase.getDatabase(application, viewModelScope))
+    val allCount: LiveData<Int> = repository.allCount
 
     init{
         name.set("Yoo")
@@ -24,9 +37,17 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun increase(){
         count.value = count.value?.plus(1)
+        roomCount += 1
+        updateCount(CountEntity(0, roomCount))
     }
 
     fun decrease(){
         count.value = count.value?.minus(1)
+        roomCount -= 1
+        updateCount(CountEntity(0, roomCount))
+    }
+
+    private fun updateCount(countEntity: CountEntity) = viewModelScope.launch(Dispatchers.IO){
+        repository.countUpdate(countEntity)
     }
 }
