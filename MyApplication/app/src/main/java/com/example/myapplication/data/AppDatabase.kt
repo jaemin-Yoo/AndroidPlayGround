@@ -34,7 +34,7 @@ abstract class AppDatabase: RoomDatabase() {
                     DATABASE_NAME
                 )
                     .addCallback(AppDatabaseCallback(scope))
-                    .fallbackToDestructiveMigration()
+                    .fallbackToDestructiveMigration() // DB 스키마 변경 시 기존 데이터 모두 삭제
                     .build()
                 INSTANCE = instance
                 instance

@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_second.*
 import kotlinx.android.synthetic.main.recycler_item.*
 
 /**
- * MVVM Pattern Practice (ViewModel + LiveData + DataBinding + Repository + Room + RecyclerView)
+ *  ViewModel + LiveData + DataBinding + Repository + Room + RecyclerView
  */
 
 class SecondActivity : AppCompatActivity() {
@@ -40,6 +40,8 @@ class SecondActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(applicationContext)
         }
 
+        // 데이터가 변경될 때 반응할 수 있음.
+        // RecyclerView 는 Databinding으로 처리가 불가능하기 때문에 observe 함수 사용
         viewModel.allText.observe(this, Observer { text ->
             text?.let {
                 mAdapter.setContents(it)

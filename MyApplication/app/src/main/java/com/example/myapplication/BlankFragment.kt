@@ -52,8 +52,8 @@ class BlankFragment: Fragment() {
 
         viewModel.allCount.observe(this, Observer { count ->
             count?.let {
-                tv_room_count.text = it.toString()
-                viewModel.roomCount = it
+                Log.d("BlankFragment", "it: $it")
+                viewModel.roomCount.value = it
             }
         })
 

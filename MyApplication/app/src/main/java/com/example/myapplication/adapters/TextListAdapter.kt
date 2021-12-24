@@ -8,6 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.data.TextEntity
+import com.example.myapplication.databinding.RecyclerItemBinding
+
+/**
+ *  RecyclerView + DataBinding
+ */
 
 class TextListAdapter internal constructor(context: Context)
     : RecyclerView.Adapter<TextListAdapter.TextViewHolder>(){
@@ -15,18 +20,19 @@ class TextListAdapter internal constructor(context: Context)
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var contents = emptyList<TextEntity>()
 
-    inner class TextViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val textName: TextView = itemView.findViewById(R.id.text_name)
+    inner class TextViewHolder(val binding: RecyclerItemBinding): RecyclerView.ViewHolder(binding.root){
+        fun bind(content: TextEntity){
+            binding.content = content
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextViewHolder {
-        val itemView = inflater.inflate(R.layout.recycler_item, parent, false)
-        return TextViewHolder(itemView)
+        val binding = RecyclerItemBinding.inflate(inflater, parent, false)
+        return TextViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TextViewHolder, position: Int) {
-        val current = contents[position]
-        holder.textName.text = current.title
+        holder.bind(contents[position])
     }
 
     internal fun setContents(contents: List<TextEntity>) {

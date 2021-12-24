@@ -43,10 +43,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        move_btn.setOnClickListener {
-            val mainIntent = Intent(this, SecondActivity::class.java)
-            mainIntent.putExtra("testValue","Good")
-            result.launch(mainIntent)
+        move_second_btn.setOnClickListener {
+            val intent = Intent(this, SecondActivity::class.java)
+            intent.putExtra("testValue","Good")
+            result.launch(intent)
+        }
+
+        move_movie_btn.setOnClickListener {
+            val intent = Intent(this, MovieActivity::class.java)
+            startActivity(intent)
         }
 
         // for loop Example

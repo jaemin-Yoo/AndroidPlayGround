@@ -20,13 +20,22 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <Button
-            android:id="@+id/move_btn"
+            android:id="@+id/move_second_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Next Activitiy"
+            android:text="Second Activitiy"
+            app:layout_constraintBottom_toTopOf="@+id/tv_name"
+            app:layout_constraintEnd_toStartOf="@id/move_movie_btn"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <Button
+            android:id="@+id/move_movie_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Movie Activitiy"
             app:layout_constraintBottom_toTopOf="@+id/tv_name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toEndOf="@id/move_second_btn"/>
 
         <TextView
             android:id="@+id/tv_name"
@@ -34,37 +43,44 @@
             android:layout_height="wrap_content"
             android:text="@{vm.name}"
             android:onClick="@{()->vm.nameClick()}"
-            app:layout_constraintBottom_toTopOf="@id/tv_activity"
+            app:layout_constraintBottom_toTopOf="@id/linear_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
-        <TextView
-            android:id="@+id/tv_activity"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linear_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Main Activity"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintBottom_toBottomOf="parent">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_plus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{()->vm.increase()}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:srcCompat="@drawable/ic_baseline_exposure_plus_1_24"/>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->vm.increase()}"
+                app:srcCompat="@drawable/ic_baseline_exposure_plus_1_24" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_minus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{()->vm.decrease()}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:srcCompat="@drawable/ic_baseline_exposure_neg_1_24"/>
+            <TextView
+                android:id="@+id/tv_activity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:text="Main Activity"/>
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_minus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->vm.decrease()}"
+                app:srcCompat="@drawable/ic_baseline_exposure_neg_1_24"/>
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
