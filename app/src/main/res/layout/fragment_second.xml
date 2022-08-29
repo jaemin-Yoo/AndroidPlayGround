@@ -8,16 +8,10 @@
         tools:context=".SecondFragment">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_second_fragment" />
-
-        <Button
-            android:id="@+id/btn_move"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="move"/>
+            android:text="@string/hello_second_fragment" />
 
     </FrameLayout>
 

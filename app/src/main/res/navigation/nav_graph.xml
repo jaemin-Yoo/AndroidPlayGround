@@ -11,9 +11,6 @@
         android:label="First Fragment"
         tools:layout="@layout/fragment_first">
 
-        <action
-            android:id="@+id/action_first_fragment_to_second_fragment"
-            app:destination="@id/second_fragment"/>
     </fragment>
 
     <fragment
@@ -22,15 +19,14 @@
         android:label="Second Fragment"
         tools:layout="@layout/fragment_second">
 
-        <action
-            android:id="@+id/action_second_fragment_to_third_fragment"
-            app:destination="@id/third_fragment"/>
     </fragment>
 
     <fragment
         android:id="@+id/third_fragment"
         android:name="com.jaemin.androidplayground.ThirdFragment"
         android:label="Third Fragment"
-        tools:layout="@layout/fragment_third"/>
+        tools:layout="@layout/fragment_third">
+
+    </fragment>
 
 </navigation>
