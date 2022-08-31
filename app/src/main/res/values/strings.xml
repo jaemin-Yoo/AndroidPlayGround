@@ -4,6 +4,8 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment</string>
     <string name="hello_third_fragment">Hello third fragment</string>
+    <string name="hello_sub_first_fragment">Hello sub first fragment</string>
+    <string name="hello_sub_second_fragment">Hello sub second fragment</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

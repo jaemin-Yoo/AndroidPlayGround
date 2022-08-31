@@ -2,25 +2,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        tools:context=".FirstFragment">
+        tools:context=".SubSecondFragment">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/hello_first_fragment" />
+            android:text="@string/hello_sub_second_fragment" />
 
-        <Button
-            android:id="@+id/btn_move"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Move" />
-
-    </LinearLayout>
+    </FrameLayout>
 
 </layout>
