@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jaemin.androidplayground.databinding.FragmentMapBinding
+import net.daum.mf.map.api.MapView
 
 class MapFragment : Fragment() {
 
@@ -15,6 +16,9 @@ class MapFragment : Fragment() {
     ): View {
         val binding = FragmentMapBinding.inflate(inflater, container, false)
         context ?: return binding.root
+
+        val mapView = MapView(context)
+        binding.mapView.addView(mapView)
 
         return binding.root
     }
