@@ -1,4 +1,4 @@
-package com.jaemin.androidplayground
+package com.jaemin.androidplayground.ui.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

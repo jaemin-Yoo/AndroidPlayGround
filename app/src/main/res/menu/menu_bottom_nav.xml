@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/first_fragment"
+        android:id="@+id/map_fragment"
         android:icon="@drawable/ic_home"
-        android:title="First"/>
+        android:title="Map"/>
 
     <item
         android:id="@+id/second_fragment"

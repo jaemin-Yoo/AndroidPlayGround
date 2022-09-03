@@ -3,19 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/first_fragment">
+    app:startDestination="@id/map_fragment">
 
     <fragment
-        android:id="@+id/first_fragment"
-        android:name="com.jaemin.androidplayground.FirstFragment"
+        android:id="@+id/map_fragment"
+        android:name="com.jaemin.androidplayground.ui.home.MapFragment"
         android:label="First Fragment"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_map">
 
     </fragment>
 
     <fragment
         android:id="@+id/second_fragment"
-        android:name="com.jaemin.androidplayground.SecondFragment"
+        android:name="com.jaemin.androidplayground.ui.home.SecondFragment"
         android:label="Second Fragment"
         tools:layout="@layout/fragment_second">
 
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/third_fragment"
-        android:name="com.jaemin.androidplayground.ThirdFragment"
+        android:name="com.jaemin.androidplayground.ui.home.ThirdFragment"
         android:label="Third Fragment"
         tools:layout="@layout/fragment_third">
 

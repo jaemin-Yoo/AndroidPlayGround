@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidPlayGround">
         <activity
-            android:name=".SubActivity"
+            android:name=".ui.sub.SubActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.home.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
