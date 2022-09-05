@@ -1,7 +1,7 @@
 package com.jaemin.androidplayground.ui.sub
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.jaemin.androidplayground.R
 
 class SubActivity : AppCompatActivity() {

@@ -1,20 +1,13 @@
 package com.jaemin.androidplayground.ui.home
 
-import android.content.pm.PackageManager
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Base64
-import android.util.Log
-import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.jaemin.androidplayground.R
 import com.jaemin.androidplayground.databinding.ActivityMainBinding
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 
 class MainActivity : AppCompatActivity() {
 
