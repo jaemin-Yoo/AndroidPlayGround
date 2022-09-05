@@ -15,10 +15,16 @@
             android:text="@string/hello_sub_first_fragment" />
 
         <Button
-            android:id="@+id/btn_move"
+            android:id="@+id/btn_move_fragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Move" />
+            android:text="MOVE FRAGMENT" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_move_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MOVE ACTIVITY" />
 
     </LinearLayout>
 
