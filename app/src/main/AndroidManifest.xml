@@ -15,6 +15,11 @@
         android:theme="@style/Theme.AndroidPlayGround"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.compose.ComposeActivity"
+            android:exported="false"
+            android:label="@string/title_activity_compose"
+            android:theme="@style/Theme.AndroidPlayGround" />
+        <activity
             android:name=".ui.sub.SubFirstActivity"
             android:exported="false" />
         <activity

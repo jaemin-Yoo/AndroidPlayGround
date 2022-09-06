@@ -9,17 +9,17 @@
         android:gravity="center"
         tools:context=".ui.home.MapFragment">
 
-        <TextView
+        <Button
+            android:id="@+id/btn_check_lifecycle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/hello_third_fragment" />
+            android:text="check lifecycle" />
 
         <Button
-            android:id="@+id/btn_move"
+            android:id="@+id/btn_compose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Move" />
+            android:text="compose" />
 
     </LinearLayout>
 

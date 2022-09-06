@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.jaemin.androidplayground.databinding.FragmentThirdBinding
+import com.jaemin.androidplayground.ui.compose.ComposeActivity
 import com.jaemin.androidplayground.ui.sub.SubActivity
 
 class ThirdFragment : Fragment() {
@@ -18,8 +19,13 @@ class ThirdFragment : Fragment() {
         val binding = FragmentThirdBinding.inflate(inflater, container, false)
         context ?: return binding.root
 
-        binding.btnMove.setOnClickListener {
+        binding.btnCheckLifecycle.setOnClickListener {
             val intent = Intent(context, SubActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnCompose.setOnClickListener {
+            val intent = Intent(context, ComposeActivity::class.java)
             startActivity(intent)
         }
 
