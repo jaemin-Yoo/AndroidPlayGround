@@ -1,8 +1,8 @@
 ---
-name: Feature request
+name: Todo request
 about: 작업 정의
 title: "[branch-name] task description"
-labels: enhancement
+labels: todo
 assignees: jaemin-Yoo
 
 ---
