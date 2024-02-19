@@ -6,4 +6,6 @@
     </style>
 
     <style name="Theme.Architecturemvc" parent="Base.Theme.Architecturemvc" />
+
+    <style name="Theme.Architecturemvc.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
 </resources>
