@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">architecture-mvc</string>
+    <string name="done">완료</string>
 </resources>
