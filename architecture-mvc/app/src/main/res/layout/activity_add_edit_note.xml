@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/soft_blue"
     tools:context=".AddEditNoteActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -56,10 +56,70 @@
         android:inputType="text"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_soft_green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/et_title"
         tools:text="저는 유재민입니다. 반갑습니다. 진짜 반갑습니다." />
+
+    <ImageButton
+        android:id="@+id/btn_soft_green"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/selector_circle_green"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@id/btn_soft_blue"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_soft_blue"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/selector_circle_blue"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toBottomOf="@id/btn_soft_green"
+        app:layout_constraintEnd_toStartOf="@id/btn_soft_pink"
+        app:layout_constraintStart_toEndOf="@id/btn_soft_green"
+        app:layout_constraintTop_toTopOf="@id/btn_soft_green" />
+
+    <ImageButton
+        android:id="@+id/btn_soft_pink"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/selector_circle_pink"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toBottomOf="@id/btn_soft_green"
+        app:layout_constraintEnd_toStartOf="@id/btn_soft_yellow"
+        app:layout_constraintStart_toEndOf="@id/btn_soft_blue"
+        app:layout_constraintTop_toTopOf="@id/btn_soft_green" />
+
+    <ImageButton
+        android:id="@+id/btn_soft_yellow"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/selector_circle_yellow"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toBottomOf="@id/btn_soft_green"
+        app:layout_constraintEnd_toStartOf="@id/btn_dark_gray"
+        app:layout_constraintStart_toEndOf="@id/btn_soft_pink"
+        app:layout_constraintTop_toTopOf="@id/btn_soft_green" />
+
+    <ImageButton
+        android:id="@+id/btn_dark_gray"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/selector_circle_gray"
+        android:importantForAccessibility="no"
+        app:layout_constraintBottom_toBottomOf="@id/btn_soft_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_soft_yellow"
+        app:layout_constraintTop_toTopOf="@id/btn_soft_green" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
