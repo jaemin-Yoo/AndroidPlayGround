@@ -3,12 +3,18 @@ package com.jm.architecture_mvc
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.jm.architecture_mvc.databinding.ActivityAddEditNoteBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class AddEditNoteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddEditNoteBinding
+    @Inject lateinit var noteDao: NoteDao
+    private var currentColor = R.color.soft_blue
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +44,7 @@ class AddEditNoteActivity : AppCompatActivity() {
                     btn.isSelected = false
                 }
                 button.isSelected = true
+                currentColor = color
                 binding.background.setBackgroundColor(ContextCompat.getColor(this, color))
             }
         }
@@ -45,13 +52,27 @@ class AddEditNoteActivity : AppCompatActivity() {
 
     private fun setToolbarListener() {
         binding.toolbar.setNavigationOnClickListener {
-            // Activity pop
+            finish()
         }
 
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.action_done -> {
-                    // 저장 + Activity pop
+                    val title = binding.etTitle.text.toString()
+                    val content = binding.etContent.text.toString()
+                    if (title.isBlank() || content.isBlank()) {
+                        Toast.makeText(this, "빈 칸이 존재합니다.", Toast.LENGTH_SHORT).show()
+                        return@setOnMenuItemClickListener false
+                    }
+                    val note = Note(
+                        title = binding.etTitle.text.toString(),
+                        content = binding.etContent.text.toString(),
+                        timestamp = System.currentTimeMillis(),
+                        color = currentColor
+                    )
+                    noteDao.insertNote(note)
+                    Toast.makeText(this, "저장 완료", Toast.LENGTH_SHORT).show()
+                    finish()
                     true
                 }
                 else -> false
