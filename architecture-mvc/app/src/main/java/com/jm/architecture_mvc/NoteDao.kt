@@ -9,7 +9,7 @@ import androidx.room.Query
 @Dao
 interface NoteDao {
 
-    @Query("SELECT * FROM note")
+    @Query("SELECT * FROM note ORDER BY timestamp DESC")
     fun getNotes(): List<Note>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
