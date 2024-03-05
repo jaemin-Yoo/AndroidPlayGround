@@ -35,10 +35,14 @@ class NoteAdapter(
 
     fun insertNotes(newNotes: List<Note>) {
         val diff = newNotes.size - notes.size
-        println(newNotes.toString() + "jaemin")
-        println(notes.toString() + "jaemin")
         notes.addAll(0, newNotes.subList(0, diff))
         notifyItemRangeInserted(0, diff)
+    }
+
+    fun updateNote(note: Note) {
+        val pos = notes.indexOfFirst { it.id == note.id }
+        notes[pos] = note
+        notifyItemChanged(pos)
     }
 
     fun removeNote(note: Note) {

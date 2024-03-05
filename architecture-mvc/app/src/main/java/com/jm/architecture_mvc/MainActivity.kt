@@ -37,11 +37,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setLauncher() {
-        resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                fetchNotes()
+        resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == 1) {
+                    fetchNotes()
+                } else if (result.resultCode == 2) {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val noteId = result.data!!.getIntExtra("noteId", -1)
+                        val note = noteDao.getNote(noteId)
+
+                        withContext(Dispatchers.Main) {
+                            noteAdapter.updateNote(note)
+                        }
+                    }
+                }
             }
-        }
     }
 
     private fun setListener() {
@@ -50,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initNoteAdapter() {
         noteAdapter = NoteAdapter(
-            onItemClick = { moveNoteActivity() },
+            onItemClick = { moveNoteActivity(it) },
             onItemLongClick = { },
             mutableListOf()
         )
@@ -60,8 +70,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun moveNoteActivity() {
+    private fun moveNoteActivity(noteId: Int = -1) {
         val intent = Intent(this, AddEditNoteActivity::class.java)
+        intent.putExtra("noteId", noteId)
         resultLauncher.launch(intent)
     }
 
