@@ -1,5 +1,6 @@
 package com.jm.architecture_mvc
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -26,7 +27,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initNoteAdapter()
+        setListener()
         fetchNotes()
+    }
+
+    private fun setListener() {
+        binding.fabAdd.setOnClickListener {
+            val intent = Intent(this, AddEditNoteActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun initNoteAdapter() {
