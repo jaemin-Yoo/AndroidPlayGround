@@ -1,5 +1,6 @@
 package com.jm.architecture_mvc
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -71,6 +72,7 @@ class AddEditNoteActivity : AppCompatActivity() {
                     }
                     saveNote()
                     Toast.makeText(this, "저장 완료", Toast.LENGTH_SHORT).show()
+                    setResult(Activity.RESULT_OK)
                     finish()
                     true
                 }
