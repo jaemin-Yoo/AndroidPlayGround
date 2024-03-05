@@ -66,11 +66,13 @@ class AddEditNoteActivity : AppCompatActivity() {
                 R.id.action_done -> {
                     val title = binding.etTitle.text.toString()
                     val content = binding.etContent.text.toString()
+                    val timestamp = System.currentTimeMillis()
+                    val color = currentColor
                     if (title.isBlank() || content.isBlank()) {
                         Toast.makeText(this, "빈 칸이 존재합니다.", Toast.LENGTH_SHORT).show()
                         return@setOnMenuItemClickListener false
                     }
-                    saveNote()
+                    saveNote(title, content, timestamp, color)
                     Toast.makeText(this, "저장 완료", Toast.LENGTH_SHORT).show()
                     setResult(Activity.RESULT_OK)
                     finish()
@@ -82,15 +84,16 @@ class AddEditNoteActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveNote() = CoroutineScope(Dispatchers.IO).launch {
-        val note = Note(
-            title = binding.etTitle.text.toString(),
-            content = binding.etContent.text.toString(),
-            timestamp = System.currentTimeMillis(),
-            color = currentColor
-        )
-        noteDao.insertNote(note)
-    }
+    private fun saveNote(title: String, content: String, timestamp: Long, color: Int) =
+        CoroutineScope(Dispatchers.IO).launch {
+            val note = Note(
+                title = title,
+                content = content,
+                timestamp = timestamp,
+                color = color
+            )
+            noteDao.insertNote(note)
+        }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_add_edit_note, menu)

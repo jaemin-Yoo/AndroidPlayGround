@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         noteAdapter = NoteAdapter(
             onItemClick = { moveNoteActivity() },
             onItemLongClick = { },
-            emptyList()
+            mutableListOf()
         )
         binding.rvNotes.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
@@ -69,7 +69,8 @@ class MainActivity : AppCompatActivity() {
         val notes = noteDao.getNotes()
 
         withContext(Dispatchers.Main) {
-            noteAdapter.updateNotes(notes)
+            noteAdapter.insertNotes(notes)
+            binding.rvNotes.scrollToPosition(0)
         }
     }
 }

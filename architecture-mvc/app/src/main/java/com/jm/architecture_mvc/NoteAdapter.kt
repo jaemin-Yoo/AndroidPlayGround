@@ -13,7 +13,7 @@ import java.util.Locale
 class NoteAdapter(
     private val onItemClick: (Int) -> Unit,
     private val onItemLongClick: (Int) -> Unit,
-    private var notes: List<Note>
+    private val notes: MutableList<Note>
 ) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -33,9 +33,18 @@ class NoteAdapter(
 
     override fun getItemCount(): Int = notes.size
 
-    fun updateNotes(newNotes: List<Note>) {
-        notes = newNotes
-        notifyItemRangeChanged(0, notes.size)
+    fun insertNotes(newNotes: List<Note>) {
+        val diff = newNotes.size - notes.size
+        println(newNotes.toString() + "jaemin")
+        println(notes.toString() + "jaemin")
+        notes.addAll(0, newNotes.subList(0, diff))
+        notifyItemRangeInserted(0, diff)
+    }
+
+    fun removeNote(note: Note) {
+        val pos = notes.indexOf(note)
+        notes.removeAt(pos)
+        notifyItemRemoved(pos)
     }
 
     class NoteViewHolder(
