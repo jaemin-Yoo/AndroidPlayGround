@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jm.architecture_mvc.databinding.ListItemNoteBinding
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class NoteAdapter(
     private val onItemClick: (Int) -> Unit,
@@ -62,9 +65,14 @@ class NoteAdapter(
             with(binding) {
                 tvTitle.text = item.title
                 tvContent.text = item.content
-                tvDate.text = item.timestamp.toString()
+                tvDate.text = convertLongToDate(item.timestamp)
                 root.backgroundTintList = ColorStateList.valueOf(item.color)
             }
+        }
+
+        private fun convertLongToDate(ms: Long): String {
+            val formatter = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
+            return formatter.format(Date(ms))
         }
     }
 }
