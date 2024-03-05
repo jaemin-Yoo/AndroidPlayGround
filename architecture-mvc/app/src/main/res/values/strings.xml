@@ -3,4 +3,5 @@
     <string name="done">완료</string>
     <string name="content">Content</string>
     <string name="title">Title</string>
+    <string name="add_note">메모 추가</string>
 </resources>
