@@ -3,6 +3,7 @@ package com.jm.architecture_mvc
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.jm.architecture_mvc.databinding.ListItemNoteBinding
 import java.text.SimpleDateFormat
@@ -34,7 +35,7 @@ class NoteAdapter(
 
     fun updateNotes(newNotes: List<Note>) {
         notes = newNotes
-        notifyItemRangeInserted(0, notes.size)
+        notifyItemRangeChanged(0, notes.size)
     }
 
     class NoteViewHolder(
@@ -66,7 +67,7 @@ class NoteAdapter(
                 tvTitle.text = item.title
                 tvContent.text = item.content
                 tvDate.text = convertLongToDate(item.timestamp)
-                root.backgroundTintList = ColorStateList.valueOf(item.color)
+                root.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, item.color))
             }
         }
 
