@@ -7,13 +7,18 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.jm.architecture_mvc.databinding.ActivityAddEditNoteBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddEditNoteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddEditNoteBinding
-    @Inject lateinit var noteDao: NoteDao
+
+    @Inject
+    lateinit var noteDao: NoteDao
     private var currentColor = R.color.soft_blue
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,20 +69,25 @@ class AddEditNoteActivity : AppCompatActivity() {
                         Toast.makeText(this, "빈 칸이 존재합니다.", Toast.LENGTH_SHORT).show()
                         return@setOnMenuItemClickListener false
                     }
-                    val note = Note(
-                        title = binding.etTitle.text.toString(),
-                        content = binding.etContent.text.toString(),
-                        timestamp = System.currentTimeMillis(),
-                        color = currentColor
-                    )
-                    noteDao.insertNote(note)
+                    saveNote()
                     Toast.makeText(this, "저장 완료", Toast.LENGTH_SHORT).show()
                     finish()
                     true
                 }
+
                 else -> false
             }
         }
+    }
+
+    private fun saveNote() = CoroutineScope(Dispatchers.IO).launch {
+        val note = Note(
+            title = binding.etTitle.text.toString(),
+            content = binding.etContent.text.toString(),
+            timestamp = System.currentTimeMillis(),
+            color = currentColor
+        )
+        noteDao.insertNote(note)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
