@@ -3,7 +3,6 @@ package com.jm.architecture_mvc
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jm.architecture_mvc.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,24 +31,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setListener() {
-        binding.fabAdd.setOnClickListener {
-            val intent = Intent(this, AddEditNoteActivity::class.java)
-            startActivity(intent)
-        }
+        binding.fabAdd.setOnClickListener { moveNoteActivity() }
     }
 
     private fun initNoteAdapter() {
-        noteAdapter = NoteAdapter(emptyList())
+        noteAdapter = NoteAdapter(
+            onItemClick = { moveNoteActivity() },
+            onItemLongClick = {  },
+            emptyList()
+        )
         binding.rvNotes.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = noteAdapter
         }
     }
 
+    private fun moveNoteActivity() {
+        val intent = Intent(this, AddEditNoteActivity::class.java)
+        startActivity(intent)
+    }
+
     private fun fetchNotes() {
         CoroutineScope(Dispatchers.IO).launch {
             val notes = noteDao.getNotes()
-            Log.d("jaemin", notes.toString())
 
             withContext(Dispatchers.Main) {
                 noteAdapter.updateNotes(notes)
