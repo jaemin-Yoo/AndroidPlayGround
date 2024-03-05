@@ -1,11 +1,12 @@
 package com.jm.architecture_mvc
 
-import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jm.architecture_mvc.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -61,7 +62,17 @@ class MainActivity : AppCompatActivity() {
     private fun initNoteAdapter() {
         noteAdapter = NoteAdapter(
             onItemClick = { moveNoteActivity(it) },
-            onItemLongClick = { },
+            onItemLongClick = {
+                AlertDialog.Builder(this)
+                    .setMessage("삭제하시겠습니까?")
+                    .setPositiveButton("예") { dialog, which ->
+                        deleteNote(it)
+                        Toast.makeText(this, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                    .setNegativeButton("아니오") { dialog, _ ->
+                        dialog.dismiss()
+                    }.show()
+            },
             mutableListOf()
         )
         binding.rvNotes.apply {
@@ -82,6 +93,14 @@ class MainActivity : AppCompatActivity() {
         withContext(Dispatchers.Main) {
             noteAdapter.insertNotes(notes)
             binding.rvNotes.scrollToPosition(0)
+        }
+    }
+
+    private fun deleteNote(noteId: Int) = CoroutineScope(Dispatchers.IO).launch {
+        noteDao.deleteNote(noteId)
+
+        withContext(Dispatchers.Main) {
+            noteAdapter.removeNote(noteId)
         }
     }
 }

@@ -45,8 +45,8 @@ class NoteAdapter(
         notifyItemChanged(pos)
     }
 
-    fun removeNote(note: Note) {
-        val pos = notes.indexOf(note)
+    fun removeNote(noteId: Int) {
+        val pos = notes.indexOfFirst { it.id == noteId }
         notes.removeAt(pos)
         notifyItemRemoved(pos)
     }

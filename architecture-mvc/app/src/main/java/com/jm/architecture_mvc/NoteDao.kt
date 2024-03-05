@@ -1,7 +1,6 @@
 package com.jm.architecture_mvc
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -22,6 +21,6 @@ interface NoteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertNote(note: Note)
 
-    @Delete
-    fun deleteNote(note: Note)
+    @Query("DELETE FROM note WHERE id = :noteId")
+    fun deleteNote(noteId: Int)
 }
