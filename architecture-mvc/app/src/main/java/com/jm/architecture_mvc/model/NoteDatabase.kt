@@ -1,4 +1,4 @@
-package com.jm.architecture_mvc
+package com.jm.architecture_mvc.model
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

@@ -1,4 +1,4 @@
-package com.jm.architecture_mvc
+package com.jm.architecture_mvc.view
 
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.jm.architecture_mvc.databinding.ListItemNoteBinding
+import com.jm.architecture_mvc.model.Note
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

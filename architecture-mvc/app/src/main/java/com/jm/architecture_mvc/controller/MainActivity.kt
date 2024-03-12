@@ -1,4 +1,4 @@
-package com.jm.architecture_mvc
+package com.jm.architecture_mvc.controller
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jm.architecture_mvc.view.NoteAdapter
+import com.jm.architecture_mvc.model.NoteDao
 import com.jm.architecture_mvc.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope

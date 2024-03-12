@@ -1,4 +1,4 @@
-package com.jm.architecture_mvc
+package com.jm.architecture_mvc.model
 
 import android.content.Context
 import androidx.room.Room

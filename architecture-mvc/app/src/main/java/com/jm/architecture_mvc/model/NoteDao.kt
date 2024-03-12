@@ -1,4 +1,4 @@
-package com.jm.architecture_mvc
+package com.jm.architecture_mvc.model
 
 import androidx.room.Dao
 import androidx.room.Insert

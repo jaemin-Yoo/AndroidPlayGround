@@ -1,4 +1,4 @@
-package com.jm.architecture_mvc
+package com.jm.architecture_mvc.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

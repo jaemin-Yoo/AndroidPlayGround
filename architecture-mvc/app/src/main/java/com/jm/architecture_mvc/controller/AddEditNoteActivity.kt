@@ -1,4 +1,4 @@
-package com.jm.architecture_mvc
+package com.jm.architecture_mvc.controller
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,9 @@ import android.view.Menu
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.jm.architecture_mvc.model.Note
+import com.jm.architecture_mvc.model.NoteDao
+import com.jm.architecture_mvc.R
 import com.jm.architecture_mvc.databinding.ActivityAddEditNoteBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
