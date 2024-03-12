@@ -21,9 +21,9 @@ class NoteAdapter(
         val inflater = LayoutInflater.from(parent.context)
         val binding = ListItemNoteBinding.inflate(inflater, parent, false)
         return NoteViewHolder(
+            binding,
             onItemClick,
-            onItemLongClick,
-            binding
+            onItemLongClick
         )
     }
 
@@ -34,28 +34,37 @@ class NoteAdapter(
 
     override fun getItemCount(): Int = notes.size
 
-    fun insertNotes(newNotes: List<Note>) {
-        val diff = newNotes.size - notes.size
-        notes.addAll(0, newNotes.subList(0, diff))
-        notifyItemRangeInserted(0, diff)
+    fun initNotes(newNotes: List<Note>) {
+        notes.clear()
+        notes.addAll(newNotes)
+        notifyItemRangeChanged(0, notes.size)
+    }
+
+    fun insertNote(note: Note) {
+        notes.add(0, note)
+        notifyItemInserted(0)
     }
 
     fun updateNote(note: Note) {
         val pos = notes.indexOfFirst { it.id == note.id }
-        notes[pos] = note
-        notifyItemChanged(pos)
+        if (pos >= 0) {
+            notes[pos] = note
+            notifyItemChanged(pos)
+        }
     }
 
     fun removeNote(noteId: Int) {
         val pos = notes.indexOfFirst { it.id == noteId }
-        notes.removeAt(pos)
-        notifyItemRemoved(pos)
+        if (pos >= 0) {
+            notes.removeAt(pos)
+            notifyItemRemoved(pos)
+        }
     }
 
     class NoteViewHolder(
+        private val binding: ListItemNoteBinding,
         onItemClick: (Int) -> Unit,
-        onItemLongClick: (Int) -> Unit,
-        private val binding: ListItemNoteBinding
+        onItemLongClick: (Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         private var noteId: Int? = null
 
@@ -70,8 +79,7 @@ class NoteAdapter(
                 noteId?.let {
                     onItemLongClick(it)
                     true
-                }
-                false
+                } ?: false
             }
         }
 
@@ -81,7 +89,8 @@ class NoteAdapter(
                 tvTitle.text = item.title
                 tvContent.text = item.content
                 tvDate.text = convertLongToDate(item.timestamp)
-                root.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, item.color))
+                root.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(itemView.context, item.color))
             }
         }
 
