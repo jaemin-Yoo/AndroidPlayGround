@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.widget.ImageButton
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.lifecycleScope
 import com.jm.architecture_mvc.model.Note
 import com.jm.architecture_mvc.model.NoteDao
 import com.jm.architecture_mvc.R
@@ -27,7 +26,7 @@ class AddEditNoteActivity : AppCompatActivity() {
     @Inject
     lateinit var noteDao: NoteDao
 
-    private var noteId: Int = -1
+    private var noteId: Long = -1L
     private var currentColor = R.color.soft_blue
     private var timestamp: Long = 0L
     private lateinit var colorButtons: List<Pair<ImageButton, Int>>
@@ -37,7 +36,7 @@ class AddEditNoteActivity : AppCompatActivity() {
         binding = ActivityAddEditNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        noteId = intent.getIntExtra("noteId", -1)
+        noteId = intent.getLongExtra("noteId", -1L)
         setupUI()
     }
 
@@ -83,6 +82,8 @@ class AddEditNoteActivity : AppCompatActivity() {
     private fun updateUIWithNoteData() {
         CoroutineScope(Dispatchers.Main).launch {
             val note = getNote()
+            currentColor = note.color
+            timestamp = note.timestamp
             with(binding) {
                 etTitle.setText(note.title)
                 etContent.setText(note.content)
@@ -92,9 +93,9 @@ class AddEditNoteActivity : AppCompatActivity() {
     }
 
     private suspend fun getNote(): Note {
-        return if (noteId == -1) {
+        return if (noteId == -1L) {
             Note(
-                id = null,
+                id = 0L,
                 title = "",
                 content = "",
                 timestamp = 0L,
@@ -122,16 +123,17 @@ class AddEditNoteActivity : AppCompatActivity() {
             return
         }
 
-        val timestamp = if (noteId == -1) System.currentTimeMillis() else this.timestamp
+        val id = if (noteId == -1L) 0L else noteId
+        val timestamp = if (noteId == -1L) System.currentTimeMillis() else this.timestamp
         val note = Note(
-            id = noteId,
+            id = id,
             title = title,
             content = content,
             timestamp = timestamp,
             color = currentColor
         )
 
-        if (noteId == -1) {
+        if (noteId == -1L) {
             saveNote(note)
         } else {
             updateNote(note)
@@ -139,24 +141,27 @@ class AddEditNoteActivity : AppCompatActivity() {
     }
 
     private fun saveNote(note: Note) {
-        lifecycleScope.launch {
-            noteDao.insertNote(note)
-            showToast("저장 완료")
-
-            setResult(SAVE_NOTE)
-            finish()
+        CoroutineScope(Dispatchers.IO).launch {
+            val noteId = noteDao.insertNote(note)
+            withContext(Dispatchers.Main) {
+                val intent = Intent().apply { putExtra("noteId", noteId) }
+                setResult(SAVE_NOTE, intent)
+                finish()
+            }
         }
+        showToast("저장 완료")
     }
 
     private fun updateNote(note: Note) {
-        lifecycleScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             noteDao.updateNote(note)
-            showToast("업데이트 완료")
-
-            val intent = Intent().apply { putExtra("noteId", note.id) }
-            setResult(UPDATE_NOTE, intent)
-            finish()
+            withContext(Dispatchers.Main) {
+                val intent = Intent().apply { putExtra("noteId", note.id) }
+                setResult(UPDATE_NOTE, intent)
+                finish()
+            }
         }
+        showToast("업데이트 완료")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

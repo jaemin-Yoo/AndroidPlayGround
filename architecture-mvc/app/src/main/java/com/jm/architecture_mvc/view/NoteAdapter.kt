@@ -12,8 +12,8 @@ import java.util.Date
 import java.util.Locale
 
 class NoteAdapter(
-    private val onItemClick: (Int) -> Unit,
-    private val onItemLongClick: (Int) -> Unit,
+    private val onItemClick: (Long) -> Unit,
+    private val onItemLongClick: (Long) -> Unit,
     private val notes: MutableList<Note>
 ) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
@@ -53,7 +53,7 @@ class NoteAdapter(
         }
     }
 
-    fun removeNote(noteId: Int) {
+    fun removeNote(noteId: Long) {
         val pos = notes.indexOfFirst { it.id == noteId }
         if (pos >= 0) {
             notes.removeAt(pos)
@@ -63,10 +63,10 @@ class NoteAdapter(
 
     class NoteViewHolder(
         private val binding: ListItemNoteBinding,
-        onItemClick: (Int) -> Unit,
-        onItemLongClick: (Int) -> Unit
+        onItemClick: (Long) -> Unit,
+        onItemLongClick: (Long) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
-        private var noteId: Int? = null
+        private var noteId: Long? = null
 
         init {
             itemView.setOnClickListener {

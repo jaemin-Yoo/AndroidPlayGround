@@ -2,7 +2,6 @@ package com.jm.architecture_mvc.model
 
 import androidx.room.Dao
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 
@@ -13,14 +12,14 @@ interface NoteDao {
     fun getNotes(): List<Note>
 
     @Query("SELECT * FROM note WHERE id = :noteId")
-    fun getNote(noteId: Int): Note
+    fun getNote(noteId: Long): Note
 
     @Update
     fun updateNote(note: Note)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertNote(note: Note)
+    @Insert
+    fun insertNote(note: Note): Long
 
     @Query("DELETE FROM note WHERE id = :noteId")
-    fun deleteNote(noteId: Int)
+    fun deleteNote(noteId: Long)
 }

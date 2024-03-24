@@ -3,12 +3,12 @@ package com.jm.architecture_mvc.controller
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jm.architecture_mvc.controller.ToastUtils.showToast
 import com.jm.architecture_mvc.view.NoteAdapter
 import com.jm.architecture_mvc.model.NoteDao
 import com.jm.architecture_mvc.databinding.ActivityMainBinding
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     private fun setLauncher() {
         resultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                val noteId = result.data!!.getIntExtra("noteId", -1)
+                val noteId = result.data!!.getLongExtra("noteId", -1)
                 if (result.resultCode == SAVE_NOTE) {
                     insertNote(noteId)
                 } else if (result.resultCode == UPDATE_NOTE) {
@@ -70,13 +70,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun moveNoteActivity(noteId: Int = -1) {
+    private fun moveNoteActivity(noteId: Long = -1) {
         val intent = Intent(this, AddEditNoteActivity::class.java)
         intent.putExtra("noteId", noteId)
         resultLauncher.launch(intent)
     }
 
-    private fun showDeleteDialog(noteId: Int) {
+    private fun showDeleteDialog(noteId: Long) {
         AlertDialog.Builder(this).apply {
             setMessage("삭제하시겠습니까?")
             setPositiveButton("예") { _, _ -> deleteNote(noteId) }
@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         noteAdapter.initNotes(notes)
     }
 
-    private fun insertNote(noteId: Int) = lifecycleScope.launch {
+    private fun insertNote(noteId: Long) = lifecycleScope.launch {
         val note = withContext(Dispatchers.IO) {
             noteDao.getNote(noteId)
         }
@@ -100,22 +100,18 @@ class MainActivity : AppCompatActivity() {
         binding.rvNotes.scrollToPosition(0)
     }
 
-    private fun updateNote(noteId: Int) = lifecycleScope.launch {
+    private fun updateNote(noteId: Long) = lifecycleScope.launch {
         val note = withContext(Dispatchers.IO) {
             noteDao.getNote(noteId)
         }
         noteAdapter.updateNote(note)
     }
 
-    private fun deleteNote(noteId: Int) = lifecycleScope.launch {
+    private fun deleteNote(noteId: Long) = lifecycleScope.launch {
         withContext(Dispatchers.IO) {
             noteDao.deleteNote(noteId)
         }
         noteAdapter.removeNote(noteId)
         showToast("삭제되었습니다.")
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
