@@ -16,7 +16,7 @@ interface NoteDao {
     fun getNote(noteId: Int): Note
 
     @Update
-    fun updateNode(node: Note)
+    fun updateNote(note: Note)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertNote(note: Note)
